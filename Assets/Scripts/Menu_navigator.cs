@@ -14,6 +14,8 @@ public class Menu_navigator : MonoBehaviour
 	public Button		assign_down;
 	public Text			rotate_key_prewiew;
 	public Button		assign_rotate;
+	public Text			music_switch_prewiew;
+	public Button		assign_music_switch;
 	public Button		play_button;
 	public Button		exit_game;
 	// Sounds
@@ -30,6 +32,7 @@ public class Menu_navigator : MonoBehaviour
 		assign_right.onClick.AddListener(delegate {Assign("Right", assign_right);});
 		assign_down.onClick.AddListener(delegate {Assign("Down", assign_down);});
 		assign_rotate.onClick.AddListener(delegate {Assign("Rotate", assign_rotate);});
+		assign_music_switch.onClick.AddListener(SwitchMusicClicked);
 		Keys_holder.ReadBindings();
 		Refresh_display();
     }
@@ -64,6 +67,11 @@ public class Menu_navigator : MonoBehaviour
 
 		rotate_key_prewiew.text = Keys_holder.keys["Rotate"].ToString();
 		assign_rotate.transform.GetChild(0).GetComponent<Text>().text = "Rotate key";
+
+		if (SceneManagerData.IsMusicOn)
+			music_switch_prewiew.text = "ON";
+		else
+			music_switch_prewiew.text = "OFF";
 	}
 
 	private void Assign(string key, Button button_clicked){
@@ -78,6 +86,18 @@ public class Menu_navigator : MonoBehaviour
 			Refresh_display();
 			is_listening = false;
 		}
+	}
+
+	private void SwitchMusicClicked()
+	{
+		if (!is_interactable) { return; }
+		UIClick.Play();
+
+		SceneManagerData.IsMusicOn = !SceneManagerData.IsMusicOn;
+		if (SceneManagerData.IsMusicOn)
+			music_switch_prewiew.text = "ON";
+		else
+			music_switch_prewiew.text = "OFF";
 	}
 
 	private void PlayButtonClicked(){

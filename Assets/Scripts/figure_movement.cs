@@ -48,12 +48,14 @@ public class figure_movement : MonoBehaviour
     // Start is called before the first frame update
 	private void	Start()
     {
-        if (!field){
+        if (!field) {
         	Debug.Log("Missing field prefab");
         }
-		SoundGameMusic.Play();
-		SoundGameMusic.pitch = 0.81f;
-		StartCoroutine(AudioFade.FadeVolumeAudioSource(SoundGameMusic, 0.5f, 1.0f));
+		if (SceneManagerData.IsMusicOn == true) { 
+			SoundGameMusic.Play();
+			SoundGameMusic.pitch = 0.81f;
+			StartCoroutine(AudioFade.FadeVolumeAudioSource(SoundGameMusic, 0.5f, 1.0f));
+		}
 
 		exit_button.GetComponent<Button>().onClick.AddListener(delegate { PressUIButton("Menu"); });
 		exit_button_ingame.GetComponent<Button>().onClick.AddListener(delegate { PressUIButton("Menu"); });
