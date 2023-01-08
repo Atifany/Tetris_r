@@ -1,4 +1,4 @@
-# CUB3D
+# Tetris
 
 My Unity project aimed to refresh what I know about C# and Unity.
 
